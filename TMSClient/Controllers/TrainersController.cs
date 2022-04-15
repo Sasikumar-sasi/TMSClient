@@ -6,22 +6,21 @@ using TMSClient.Models;
 
 namespace TMSClient.Controllers
 {
-    public class HRsController : Controller
+    public class TrainersController : Controller
     {
         IConfiguration _configuration;
         string BaseURL;
-        public HRsController(IConfiguration configuration)
+        public TrainersController(IConfiguration configuration)
         {
 
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
-
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            List<Trainer> trainers = await GetTrainers();
+            return View(trainers);
         }
-
 
         public ActionResult Details(int id)
         {
@@ -32,32 +31,29 @@ namespace TMSClient.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(HR hr)
+        public async Task<ActionResult> Create(Trainer trainers)
         {
             try
             {
-
-                HR recievedHR = new HR();
+                Trainer recievedTrainer = new Trainer();
                 HttpClientHandler clientHandler = new HttpClientHandler();
                 var httpClient = new HttpClient(clientHandler);
-                StringContent content = new StringContent(JsonConvert.SerializeObject(hr), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync(BaseURL + "/api/hrs", content))
+                StringContent content = new StringContent(JsonConvert.SerializeObject(trainers), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync(BaseURL + "/api/Trainers", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    recievedHR = JsonConvert.DeserializeObject<HR>(apiResponse);
-                    if (recievedHR != null)
+                    recievedTrainer = JsonConvert.DeserializeObject<Trainer>(apiResponse);
+                    if (recievedTrainer != null)
                     {
-                        return RedirectToAction("DashBoard","Admins");
+                        return RedirectToAction("DashBoard", "hrs");
                     }
                 }
 
 
                 ViewBag.Message = "Your Record not Created!!! Please try again";
                 return View();
-
             }
             catch
             {
@@ -103,48 +99,12 @@ namespace TMSClient.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(HR hr)
-        {
-            if (ModelState.IsValid)
-            {
-                ViewBag.Message = "Inputs are not valid";
-                return View();
-            }
-            List<Admin> admins = await GetHRs();
-            var obj = admins.Where(a => a.EmailID.Equals(hr.EmailID) && a.Password.Equals(hr.Password)).FirstOrDefault();
-            if (obj != null)
-            {
-                HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
-                HttpContext.Session.SetString("Role", obj.Role.ToString());
-                return RedirectToAction("DashBoard", "Hrs");
-            }
-            else
-            {
-                ViewBag.Message = "User not found for given Email and Password";
-                return View();
-            }
-        }
-
-        public IActionResult DashBoard()
-        {
-            return View();
-        }
-
-
-        
-        public async Task<List<Admin>> GetHRs()
+        public async Task<List<Trainer>> GetTrainers()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
             HttpClient client = new HttpClient(clientHandler);
-            string JsonStr = await client.GetStringAsync(BaseURL + "/api/hrs");
-            var result = JsonConvert.DeserializeObject<List<Admin>>(JsonStr);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainers");
+            var result = JsonConvert.DeserializeObject<List<Trainer>>(JsonStr);
             return result;
         }
     }

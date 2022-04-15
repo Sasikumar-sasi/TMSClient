@@ -236,3 +236,5 @@ D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\TMSClient.
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\ref\TMSClient.dll
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_Hr.cshtml.rz.scp.css
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_TrainerManager.cshtml.rz.scp.css
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_Trainer.cshtml.rz.scp.css
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_Trainee.cshtml.rz.scp.css

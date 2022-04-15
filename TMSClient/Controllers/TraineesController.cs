@@ -6,58 +6,61 @@ using TMSClient.Models;
 
 namespace TMSClient.Controllers
 {
-    public class HRsController : Controller
+    public class TraineesController : Controller
     {
         IConfiguration _configuration;
         string BaseURL;
-        public HRsController(IConfiguration configuration)
+        public TraineesController(IConfiguration configuration)
         {
 
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
 
-        public ActionResult Index()
+
+        // GET: TraineesController
+        public async Task<ActionResult> Index()
         {
-            return View();
+            List<Trainee> trainees = await GetTrainees();
+            return View(trainees);
         }
-
-
+        // GET: TraineesController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
+        // GET: TraineesController/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: TraineesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(HR hr)
+        public async Task<ActionResult> Create(Trainee trainee)
         {
             try
             {
-
-                HR recievedHR = new HR();
+                Trainee recievedTrainees = new Trainee();
                 HttpClientHandler clientHandler = new HttpClientHandler();
                 var httpClient = new HttpClient(clientHandler);
-                StringContent content = new StringContent(JsonConvert.SerializeObject(hr), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync(BaseURL + "/api/hrs", content))
+                StringContent content = new StringContent(JsonConvert.SerializeObject(trainee), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync(BaseURL + "/api/trainees", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    recievedHR = JsonConvert.DeserializeObject<HR>(apiResponse);
-                    if (recievedHR != null)
+                    recievedTrainees = JsonConvert.DeserializeObject<Trainee>(apiResponse);
+
+                    if (recievedTrainees != null)
                     {
-                        return RedirectToAction("DashBoard","Admins");
+                        return RedirectToAction("DashBoard", "hrs");
                     }
                 }
 
 
                 ViewBag.Message = "Your Record not Created!!! Please try again";
                 return View();
-
             }
             catch
             {
@@ -65,11 +68,13 @@ namespace TMSClient.Controllers
             }
         }
 
+        // GET: TraineesController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
+        // POST: TraineesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -84,11 +89,13 @@ namespace TMSClient.Controllers
             }
         }
 
+        // GET: TraineesController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
+        // POST: TraineesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -103,48 +110,12 @@ namespace TMSClient.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(HR hr)
-        {
-            if (ModelState.IsValid)
-            {
-                ViewBag.Message = "Inputs are not valid";
-                return View();
-            }
-            List<Admin> admins = await GetHRs();
-            var obj = admins.Where(a => a.EmailID.Equals(hr.EmailID) && a.Password.Equals(hr.Password)).FirstOrDefault();
-            if (obj != null)
-            {
-                HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
-                HttpContext.Session.SetString("Role", obj.Role.ToString());
-                return RedirectToAction("DashBoard", "Hrs");
-            }
-            else
-            {
-                ViewBag.Message = "User not found for given Email and Password";
-                return View();
-            }
-        }
-
-        public IActionResult DashBoard()
-        {
-            return View();
-        }
-
-
-        
-        public async Task<List<Admin>> GetHRs()
+        public async Task<List<Trainee>> GetTrainees()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
             HttpClient client = new HttpClient(clientHandler);
-            string JsonStr = await client.GetStringAsync(BaseURL + "/api/hrs");
-            var result = JsonConvert.DeserializeObject<List<Admin>>(JsonStr);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainees");
+            var result = JsonConvert.DeserializeObject<List<Trainee>>(JsonStr);
             return result;
         }
     }

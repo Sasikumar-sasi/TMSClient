@@ -1,36 +1,39 @@
-﻿@model TMSClient.Models.TrainerManager
+﻿@model TMSClient.Models.Trainer
 @inject IHttpContextAccessor Accessor;
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_TrainerManager.cshtml";
+    Layout = "~/Views/Shared/_Trainer.cshtml";
 }
 
 <h1>Create</h1>
 
-<h4>TrainerManager</h4>
+<h4>Trainer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div  asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div style="display:none" class="form-group">
-                <label asp-for="TMID" class="control-label"></label>
-                <input asp-for="TMID" class="form-control" />
-                <span asp-validation-for="TMID" class="text-danger"></span>
+                <label asp-for="TrainerID" class="control-label"></label>
+                <input asp-for="TrainerID" class="form-control" />
+                <span asp-validation-for="TrainerID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-
             @if (Accessor.HttpContext.Session.GetString("Role").ToString() != "HR")
             {
-
                 <div class="form-group">
                     <label asp-for="PhoneNumber" class="control-label"></label>
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SkillSet" class="control-label"></label>
+                    <input asp-for="SkillSet" class="form-control" />
+                    <span asp-validation-for="SkillSet" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Experience" class="control-label"></label>
@@ -81,6 +84,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="DashBoard">Back to Dash Board</a>
 </div>
 

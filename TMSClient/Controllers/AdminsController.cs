@@ -76,7 +76,7 @@ namespace TMSClient.Controllers
         }
 
 
-        [HttpGet]
+        
         public async Task<List<Admin>> GetAdmin()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();

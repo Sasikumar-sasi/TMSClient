@@ -16,9 +16,10 @@ namespace TMSClient.Controllers
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            List<TrainerManager> trainerManagers = await GetTrainerManagers();
+            return View(trainerManagers);
         }
 
         public ActionResult Details(int id)
@@ -99,6 +100,15 @@ namespace TMSClient.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<List<TrainerManager>> GetTrainerManagers()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainermanagers");
+            var result = JsonConvert.DeserializeObject<List<TrainerManager>>(JsonStr);
+            return result;
         }
     }
 }
