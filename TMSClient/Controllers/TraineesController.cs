@@ -131,6 +131,7 @@ namespace TMSClient.Controllers
             var obj = trainees.Where(a => a.EmailID.Equals(trainee.EmailID) && a.Password.Equals(trainee.Password)).FirstOrDefault();
             if (obj != null)
             {
+                HttpContext.Session.SetString("ID", obj.TraineeID.ToString());
                 HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
                 HttpContext.Session.SetString("Batch", obj.BatchID.ToString());
                 HttpContext.Session.SetString("Role", obj.Role.ToString());

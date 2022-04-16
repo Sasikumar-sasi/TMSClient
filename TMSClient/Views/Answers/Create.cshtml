@@ -1,0 +1,36 @@
+﻿@model TMSClient.Models.ViewModel.AnswerViewModel
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Trainee.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Answer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AnswerFile" class="control-label"></label>
+                <input asp-for="AnswerFile" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentID" class="control-label"></label>
+                <input asp-for="AssessmentID" class="form-control" value="@ViewBag.AssessmentID"/>
+                <span asp-validation-for="AssessmentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

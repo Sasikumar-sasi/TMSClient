@@ -200,6 +200,42 @@ namespace TMSClient.Controllers
             }
         }
 
+        public IActionResult UploadScore(int id,int traineeID)
+        {
+            ViewBag.AssessmentIDForScore = id;
+            ViewBag.TraineeIDForScore = traineeID;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UploadScore(Score score)
+        {
+            try
+            {
+                Score recievedScore = new Score();
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                var httpClient = new HttpClient(clientHandler);
+                StringContent content = new StringContent(JsonConvert.SerializeObject(score), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync(BaseURL + "/api/Scores", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    recievedScore = JsonConvert.DeserializeObject<Score>(apiResponse);
+                    if (recievedScore != null)
+                    {
+                        return RedirectToAction("Index", "Answers",new { id = score.AssessmentID});
+                    }
+                }
+
+
+                ViewBag.Message = "Your Record not Created!!! Please try again";
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
 
 
         public async Task<List<Assessment>> GetAllAssessments()

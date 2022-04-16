@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TMSClient.Models.Answer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Trainer.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AnswerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnswerPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TraineeID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnswerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnswerPath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessmentID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TraineeID)
+            </td>
+            <td>
+                @Html.ActionLink("Download", "DownloadAnswer", new { fileName=item.AnswerPath }) |
+                @Html.ActionLink("Upload Scores", "UploadScore","Assessments", new { id=item.AssessmentID,traineeID=item.TraineeID})
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

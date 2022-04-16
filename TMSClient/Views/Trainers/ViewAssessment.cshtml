@@ -68,9 +68,9 @@
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", "Assessments",new { id=item.AssessmentID}) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Upload Question", "Edit", "Assessments",new { id=item.AssessmentID}) |
+                @Html.ActionLink("View Ansewers", "Index","Answers", new {id=item.AssessmentID}) |
+                
             </td>
         </tr>
 }

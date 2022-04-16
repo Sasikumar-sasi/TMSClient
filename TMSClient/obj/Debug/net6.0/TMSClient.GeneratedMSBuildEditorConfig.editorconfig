@@ -23,6 +23,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Answers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5zd2Vyc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Answers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5zd2Vyc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Assessments/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzZXNzbWVudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -37,6 +45,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Assessments/UploadQuestion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzZXNzbWVudHNcVXBsb2FkUXVlc3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Assessments/UploadScore.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzZXNzbWVudHNcVXBsb2FkU2NvcmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Batchs/Create.cshtml]
