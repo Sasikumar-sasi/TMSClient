@@ -99,6 +99,53 @@ namespace TMSClient.Controllers
             }
         }
 
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(Admin admin)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Message = "Inputs are not valid";
+                return View();
+            }
+            List<Trainer> trainers = await GetTrainers();
+            var obj = trainers.Where(a => a.EmailID.Equals(admin.EmailID) && a.Password.Equals(admin.Password)).FirstOrDefault();
+            if (obj != null)
+            {
+                HttpContext.Session.SetString("ID", obj.TrainerID.ToString());
+                HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
+                HttpContext.Session.SetString("Role", obj.Role.ToString());
+                return RedirectToAction("DashBoard", "trainers");
+            }
+            else
+            {
+                ViewBag.Message = "User not found for given Email and Password";
+                return View();
+            }
+        }
+
+        public IActionResult DashBoard()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ViewAssessment()
+        {
+            List<Batch> batches = await GetAllBatchs();
+            int id = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+            Batch batch = batches.FirstOrDefault(b => b.TrainerID == id);
+            List<Assessment> assessments = await GetAllAssessments();
+            List<Assessment> yourAssessment = assessments.Where(ass=>ass.BatchID==batch.BatchID).ToList();
+            return View(yourAssessment);
+        }
+
+
         public async Task<List<Trainer>> GetTrainers()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
@@ -107,5 +154,42 @@ namespace TMSClient.Controllers
             var result = JsonConvert.DeserializeObject<List<Trainer>>(JsonStr);
             return result;
         }
+
+        public async Task<List<Batch>> GetAllBatchs()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/Batches");
+            var result = JsonConvert.DeserializeObject<List<Batch>>(JsonStr);
+            return result;
+        }
+
+        public async Task<List<Trainee>> GetTrainees()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainees");
+            var result = JsonConvert.DeserializeObject<List<Trainee>>(JsonStr);
+            return result;
+        }
+
+        public async Task<IActionResult> ViewYourTrainees()
+        {
+            List<Batch> batches = await GetAllBatchs();
+            int id =Convert.ToInt32(HttpContext.Session.GetString("ID"));
+            Batch batch =  batches.FirstOrDefault(b=>b.TrainerID==id);
+            List<Trainee> trainees = await GetTrainees();
+            List<Trainee> yourTrainees = trainees.Where(tr => tr.BatchID == batch.BatchID).ToList();
+            return View(yourTrainees);
+        }
+        public async Task<List<Assessment>> GetAllAssessments()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
+            var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
+            return result;
+        }
+
     }
 }

@@ -2,7 +2,7 @@
 @inject IHttpContextAccessor Accessor;
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Trainer.cshtml";
+    Layout = "~/Views/Shared/_Hr.cshtml";
 }
 
 <h1>Create</h1>
@@ -12,8 +12,8 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div  asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div style="display:none" class="form-group">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
                 <label asp-for="TrainerID" class="control-label"></label>
                 <input asp-for="TrainerID" class="form-control" />
                 <span asp-validation-for="TrainerID" class="text-danger"></span>
@@ -84,6 +84,6 @@
 </div>
 
 <div>
-    <a asp-action="DashBoard">Back to Dash Board</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 

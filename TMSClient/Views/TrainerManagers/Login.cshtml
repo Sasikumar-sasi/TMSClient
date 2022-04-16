@@ -1,8 +1,10 @@
-﻿@model TMSClient.Models.Admin
+﻿@model TMSClient.Models.TrainerManager
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h1>Login</h1>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -10,7 +12,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Login" asp-controller="Admins">
+        <form asp-action="Login" asp-controller="TrainerManagers">
             <div class="form-group">
                 <label asp-for="EmailID" class="control-label">Email</label>
                 <input asp-for="EmailID" class="form-control" />
@@ -27,7 +29,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger">
             </div>
             <label>@Html.Raw(ViewBag.Message)</label>
-            <label>@Html.Raw(ViewBag.User)</label>
+
         </form>
     </div>
 </div>

@@ -1,8 +1,11 @@
-﻿@model TMSClient.Models.Admin
+﻿@model TMSClient.Models.Trainer
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Trainer.cshtml";
 }
+
+<h1>Login</h1>
+
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -10,7 +13,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Login" asp-controller="Admins">
+        <form asp-action="Login" asp-controller="Trainers">
             <div class="form-group">
                 <label asp-for="EmailID" class="control-label">Email</label>
                 <input asp-for="EmailID" class="form-control" />
@@ -31,5 +34,3 @@
         </form>
     </div>
 </div>
-
-

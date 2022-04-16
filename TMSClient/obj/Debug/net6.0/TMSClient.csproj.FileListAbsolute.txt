@@ -238,3 +238,8 @@ D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_TrainerManager.cshtml.rz.scp.css
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_Trainer.cshtml.rz.scp.css
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\scopedcss\Views\Shared\_Trainee.cshtml.rz.scp.css
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\obj\Debug\net6.0\TMSClient.MvcApplicationPartsAssemblyInfo.cs

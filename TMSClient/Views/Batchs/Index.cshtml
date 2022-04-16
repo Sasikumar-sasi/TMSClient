@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TMSClient.Models.Batch>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_TrainerManager.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stream)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainerID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BatchID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BatchName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stream)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainerID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

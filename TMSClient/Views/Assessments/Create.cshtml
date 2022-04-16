@@ -1,0 +1,72 @@
+﻿@model TMSClient.Models.Assessment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_TrainerManager.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Assessment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display:none" class="form-group">
+                <label asp-for="AssessmentID" class="control-label"></label>
+                <input asp-for="AssessmentID" class="form-control" />
+                @*<span asp-validation-for="AssessmentID" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentName" class="control-label"></label>
+                <input asp-for="AssessmentName" class="form-control" />
+                <span asp-validation-for="AssessmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartingTime" class="control-label"></label>
+                <input asp-for="StartingTime" class="form-control" />
+                <span asp-validation-for="StartingTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndingTime" class="control-label"></label>
+                <input asp-for="EndingTime" class="form-control" />
+                <span asp-validation-for="EndingTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question" class="control-label"></label>
+                <input asp-for="Question" class="form-control" />
+                <span asp-validation-for="Question" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="BatchID" class="control-label"></label>
+                <input asp-for="BatchID" class="form-control" />
+                <span asp-validation-for="BatchID" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="BatchID" class="control-label"></label>
+                <select asp-for="BatchID" class ="form-control" asp-items="ViewBag.BatchName"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

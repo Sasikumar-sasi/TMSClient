@@ -13,8 +13,9 @@ namespace TMSClient.Models
         public string Stream { get; set; }
 
         [ForeignKey("TrainerID")]
-        public int TrainerID { get; set; }
-        public virtual Trainer Trainers{ get; set; }
+        public int? TrainerID { get; set; }
+        public virtual Trainer Trainers { get; set; }
+        ICollection<Trainee> Trainees { get; set; }
 
 
     }

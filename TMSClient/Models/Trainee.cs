@@ -15,7 +15,7 @@ namespace TMSClient.Models
         public string PhoneNumber { get; set; } = "NA";
 
         [Required, MaxLength(30)]
-        public string SkillSet { get; set; }
+        public string SkillSet { get; set; } = "NA";
 
         [Required, Range(0, 20)]
         public int Experience { get; set; } = 0;
@@ -40,7 +40,7 @@ namespace TMSClient.Models
         public string Password { get; set; }
 
         [ForeignKey("BatchID")]
-        public int? BatchID { get; set; } = 0;
+        public int? BatchID { get; set; } 
         public virtual Batch Batchs { get; set; }
 
     }

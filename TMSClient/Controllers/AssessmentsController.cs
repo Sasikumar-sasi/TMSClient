@@ -7,30 +7,30 @@ using TMSClient.Models;
 
 namespace TMSClient.Controllers
 {
-    public class TraineesController : Controller
+    public class AssessmentsController : Controller
     {
         IConfiguration _configuration;
         string BaseURL;
-        public TraineesController(IConfiguration configuration)
+        public AssessmentsController(IConfiguration configuration)
         {
+
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
-
-
-        // GET: TraineesController
         public async Task<ActionResult> Index()
         {
-            List<Trainee> trainees = await GetTrainees();
-            return View(trainees);
+            List<Assessment> assessments = await GetAllAssessments();
+
+            return View(assessments);
         }
-        // GET: TraineesController/Details/5
+
+        // GET: AssessmentsController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: TraineesController/Create
+        // GET: AssessmentsController/Create
         public async Task<ActionResult> Create()
         {
             var batches = await GetAllBatchs();
@@ -38,25 +38,24 @@ namespace TMSClient.Controllers
             return View();
         }
 
-        // POST: TraineesController/Create
+        // POST: AssessmentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Trainee trainee)
+        public async Task<ActionResult> Create(Assessment assessment)
         {
             try
             {
-                Trainee recievedTrainees = new Trainee();
+                Assessment recievedAssessment = new Assessment();
                 HttpClientHandler clientHandler = new HttpClientHandler();
                 var httpClient = new HttpClient(clientHandler);
-                StringContent content = new StringContent(JsonConvert.SerializeObject(trainee), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync(BaseURL + "/api/trainees", content))
+                StringContent content = new StringContent(JsonConvert.SerializeObject(assessment), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync(BaseURL + "/api/Assessments", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    recievedTrainees = JsonConvert.DeserializeObject<Trainee>(apiResponse);
-
-                    if (recievedTrainees != null)
+                    recievedAssessment = JsonConvert.DeserializeObject<Assessment>(apiResponse);
+                    if (recievedAssessment != null)
                     {
-                        return RedirectToAction("DashBoard", "hrs");
+                        return RedirectToAction("DashBoard", "trainermanagers");
                     }
                 }
 
@@ -70,13 +69,13 @@ namespace TMSClient.Controllers
             }
         }
 
-        // GET: TraineesController/Edit/5
+        // GET: AssessmentsController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: TraineesController/Edit/5
+        // POST: AssessmentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -91,13 +90,13 @@ namespace TMSClient.Controllers
             }
         }
 
-        // GET: TraineesController/Delete/5
+        // GET: AssessmentsController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: TraineesController/Delete/5
+        // POST: AssessmentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -112,15 +111,14 @@ namespace TMSClient.Controllers
             }
         }
 
-        public async Task<List<Trainee>> GetTrainees()
+        public async Task<List<Assessment>> GetAllAssessments()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
             HttpClient client = new HttpClient(clientHandler);
-            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainees");
-            var result = JsonConvert.DeserializeObject<List<Trainee>>(JsonStr);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
+            var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
             return result;
         }
-
         public async Task<List<Batch>> GetAllBatchs()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();

@@ -77,11 +77,17 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="BatchID" class="control-label"></label>
                 <input asp-for="BatchID" class="form-control" />
                 <span asp-validation-for="BatchID" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="BatchID" class="control-label"></label>
+                <select asp-for="BatchID" class ="form-control" asp-items="ViewBag.BatchName"></select>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

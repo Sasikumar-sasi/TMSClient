@@ -14,7 +14,7 @@ namespace TMSClient.Models
         public string PhoneNumber { get; set; } = "NA";
 
         [Required, MaxLength(30)]
-        public string SkillSet { get; set; }
+        public string SkillSet { get; set; } = "NA";
 
         [Required, Range(0, 20)]
         public int Experience { get; set; } = 0;
@@ -37,6 +37,7 @@ namespace TMSClient.Models
 
         [Required, MaxLength(15)]
         public string Password { get; set; }
+
 
     }
 }

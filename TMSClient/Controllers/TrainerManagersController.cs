@@ -102,6 +102,41 @@ namespace TMSClient.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(TrainerManager tm)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Message = "Inputs are not valid";
+                return View();
+            }
+            List<TrainerManager> admins = await GetTrainerManagers();
+            var obj = admins.Where(a => a.EmailID.Equals(tm.EmailID) && a.Password.Equals(tm.Password)).FirstOrDefault();
+            if (obj != null)
+            {
+                HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
+                HttpContext.Session.SetString("Role", obj.Role.ToString());
+                return RedirectToAction("DashBoard", "TrainerManagers");
+            }
+            else
+            {
+                ViewBag.Message = "User not found for given Email and Password";
+                return View();
+            }
+        }
+
+
+        public IActionResult DashBoard()
+        {
+            return View();
+        }
+
         public async Task<List<TrainerManager>> GetTrainerManagers()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
