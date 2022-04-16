@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
+using TMSClient.Models.ViewModel;
 
 namespace TMSClient.Controllers
 {
@@ -11,9 +12,13 @@ namespace TMSClient.Controllers
     {
         IConfiguration _configuration;
         string BaseURL;
-        public AssessmentsController(IConfiguration configuration)
-        {
+        IHostEnvironment _environment;
 
+
+
+        public AssessmentsController(IConfiguration configuration, IHostEnvironment environment)
+        {
+            _environment = environment;
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
@@ -68,26 +73,110 @@ namespace TMSClient.Controllers
                 return View();
             }
         }
+        //[HttpGet]
+        //public ActionResult UploadQuestion()
+        //{
+        //    return View();
+        //}
+
 
         // GET: AssessmentsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            List<Assessment> assessments = await GetAllAssessments();
+            Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID == id);
+            AssessmentViewModel assessmentViewModel = new AssessmentViewModel()
+            {
+                AssessmentName = assessment.AssessmentName,
+                BatchID = assessment.BatchID,
+                Date = assessment.Date,
+                Duration = assessment.Duration,
+                EndingTime = assessment.EndingTime,
+                StartingTime = assessment.StartingTime,
+                Batchs = assessment.Batchs,
+            };
+            return View(assessmentViewModel);
         }
 
         // POST: AssessmentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, AssessmentViewModel assessmentViewModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                Console.WriteLine(id+assessmentViewModel.AssessmentName);
+                Console.WriteLine(assessmentViewModel.QuestionFile.FileName);
+                string UniqueFileName = null;
+                if (assessmentViewModel.QuestionFile != null)
+                {
+                    Console.WriteLine("Checking folder");
+                    string UploadFolder = "QuestionsAndAnswers/Questions";
+                    Console.WriteLine("Folder is correct");
+                    UniqueFileName = Guid.NewGuid().ToString() + "-" + assessmentViewModel.QuestionFile.FileName;
+                    string FilePath = Path.Combine(UploadFolder, UniqueFileName + Path.GetExtension(assessmentViewModel.QuestionFile.FileName));
+                    assessmentViewModel.QuestionFile.CopyTo(new FileStream(FilePath, FileMode.Create));
+
+                    Assessment assessment = new Assessment()
+                    {
+                        AssessmentID = id,
+                        AssessmentName = assessmentViewModel.AssessmentName,
+                        Date = assessmentViewModel.Date,
+                        Duration = assessmentViewModel.Duration,
+                        EndingTime = assessmentViewModel.EndingTime,
+                        StartingTime = assessmentViewModel.StartingTime,
+                        BatchID = assessmentViewModel.BatchID,
+                        Batchs = assessmentViewModel.Batchs,
+                        Question = UniqueFileName
+
+                    };
+
+                    HttpClientHandler clientHandler = new HttpClientHandler();
+
+                    var httpClient = new HttpClient(clientHandler);
+                    StringContent contents = new StringContent(JsonConvert.SerializeObject(assessment), Encoding.UTF8, "application/json");
+
+                    var response = await httpClient.PutAsync(BaseURL + "/api/Assessments/" + id, contents);
+                    string apiResponse = await response.Content.ReadAsStringAsync(); ;
+                    if (apiResponse != null)
+                        return RedirectToAction("DashBoard", "Trainers");
+                    else
+                    {
+                        Console.WriteLine("Cannot saved to Server");
+                        return View();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("FileName is Empty");
+                    return View();
+                }
+
             }
             catch
             {
+                Console.WriteLine("Catch Bloack executed");
                 return View();
             }
+        }
+
+        public async Task<IActionResult> Download(string fileName)
+        {
+
+            if (fileName == null)
+                return Content("filename not present");
+            string QuestionFolder  = "QuestionsAndAnswers/Questions";
+
+            var path = Path.Combine(QuestionFolder,fileName+Path.GetExtension(fileName));
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            var contentType = "APPLICATION/octet-stream";
+            return File(memory, contentType, Path.GetFileName(path));
         }
 
         // GET: AssessmentsController/Delete/5
@@ -110,6 +199,8 @@ namespace TMSClient.Controllers
                 return View();
             }
         }
+
+
 
         public async Task<List<Assessment>> GetAllAssessments()
         {

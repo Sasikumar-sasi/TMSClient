@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "ViewAssessment";
-    Layout = "~/Views/Shared/_Trainer.cshtml";
+    Layout = "~/Views/Shared/_Trainee.cshtml";
 }
 
 <h1>ViewAssessment</h1>
@@ -68,9 +68,9 @@
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", "Assessments",new { id=item.AssessmentID}) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Download", "Download","Assessments", new {  fileName=item.Question}) |
+                @Html.ActionLink("Upload Answer", "UploadAnswer","Answers", new { id=item.AssessmentID}) |
+                
             </td>
         </tr>
 }

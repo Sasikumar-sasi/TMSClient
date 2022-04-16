@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="QuestionsAndAnswers\Answers\" />
+    <Folder Include="QuestionsAndAnswers\Questions\" />
+  </ItemGroup>
+
 </Project>

@@ -112,6 +112,61 @@ namespace TMSClient.Controllers
             }
         }
 
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(Trainee trainee)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Message = "Inputs are not valid";
+                return View();
+            }
+            List<Trainee> trainees = await GetTrainees();
+            var obj = trainees.Where(a => a.EmailID.Equals(trainee.EmailID) && a.Password.Equals(trainee.Password)).FirstOrDefault();
+            if (obj != null)
+            {
+                HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
+                HttpContext.Session.SetString("Batch", obj.BatchID.ToString());
+                HttpContext.Session.SetString("Role", obj.Role.ToString());
+                return RedirectToAction("DashBoard", "Trainees");
+            }
+            else
+            {
+                ViewBag.Message = "User not found for given Email and Password";
+                return View();
+            }
+        }
+
+        public IActionResult DashBoard()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ViewAssessment()
+        {
+            int BatchID = Convert.ToInt32(HttpContext.Session.GetString("Batch"));
+            List<Assessment> assessments = await GetAllAssessments();
+            List<Assessment> traineeAssessment = assessments.Where(ass => ass.BatchID == BatchID).ToList();
+            return View(traineeAssessment);
+        }
+
+
+
+        public async Task<List<Assessment>> GetAllAssessments()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
+            var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
+            return result;
+        }
+
         public async Task<List<Trainee>> GetTrainees()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
