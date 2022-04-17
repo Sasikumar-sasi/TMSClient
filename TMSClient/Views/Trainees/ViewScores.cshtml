@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TMSClient.Models.Score>
+
+@{
+    ViewData["Title"] = "ViewScores";
+    Layout = "~/Views/Shared/_Trainee.cshtml";
+}
+
+<h1>ViewScores</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ScoreID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TraineeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GainedScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScoreID)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TraineeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GainedScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalScore)
+                </td>
+
+                @foreach (var name in ViewData["assessmentName"] as List<Assessment>)  
+                {    
+                        <td>@name.AssessmentName</td>  
+                     
+                }  
+              </tr>
+          
+     }
+
+    </tbody>
+</table>

@@ -1,12 +1,25 @@
-﻿
+﻿@inject IHttpContextAccessor Accessor;
 @{
     ViewData["Title"] = "DashBoard";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h1>DashBoard</h1>
+<div class="text-center">
+   <div class="alert alert-success alert-dismissible">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>@Accessor.HttpContext.Session.GetString("EmailID").ToString()!</strong> Welcome
+</div>
+</div>
 
-<a class="btn btn-primary" asp-area="" asp-controller="HRS" asp-action="Create">Add HR</a>
+<a class="btn btn-primary" asp-area="" asp-controller="HRS" asp-action="Create">Upload New HR Profile</a>
 
+
+<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllHRs">View All HR Profile</a>
+
+<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllTrainerManager">View all Training Manager</a>
+
+<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllTrainer">View all Trainers</a>
+
+<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllTrainees">View all Trainees</a>
 
 

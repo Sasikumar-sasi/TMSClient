@@ -149,6 +149,9 @@ namespace TMSClient.Controllers
             return View();
         }
 
+
+
+
         public async Task<IActionResult> ViewAssessment()
         {
             int BatchID = Convert.ToInt32(HttpContext.Session.GetString("Batch"));
@@ -158,6 +161,24 @@ namespace TMSClient.Controllers
         }
 
 
+        public async Task<IActionResult> ViewScores()
+        {
+            List<Score> scores = await GetAllScores();
+            List<Assessment> assessments = await GetAllAssessments();
+            int id = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+            List<Score> scoresBasedID = scores.Where(s => s.TraineeID == id).ToList();
+            List<Assessment> assessmentName = new List<Assessment>();
+            foreach(Score score in scoresBasedID)
+            {
+               
+                Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID==score.AssessmentID);
+                assessmentName.Add(assessment);
+            }
+            ViewData["AssessmentName"] = assessmentName;
+            
+            return View(scoresBasedID);
+        }
+
 
         public async Task<List<Assessment>> GetAllAssessments()
         {
@@ -165,6 +186,15 @@ namespace TMSClient.Controllers
             HttpClient client = new HttpClient(clientHandler);
             string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
             var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
+            return result;
+        }
+
+        public async Task<List<Score>> GetAllScores()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/scores");
+            var result = JsonConvert.DeserializeObject<List<Score>>(JsonStr);
             return result;
         }
 

@@ -11,12 +11,32 @@ build_property.RootNamespace = TMSClient
 build_property.ProjectDir = D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = D:\Training\DOT NET\FinalProject\TMSClient\TMSClient
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/AllHRs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEFsbEhScy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/AllTrainees.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEFsbFRyYWluZWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/AllTrainer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEFsbFRyYWluZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/AllTrainerManager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEFsbFRyYWluZXJNYW5hZ2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXERhc2hCb2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Admins/Login.cshtml]
@@ -67,12 +87,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/AllTrainees.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJzXEFsbFRyYWluZWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/AllTrainerManager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJzXEFsbFRyYWluZXJNYW5hZ2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/AllTrainers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJzXEFsbFRyYWluZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJzXERhc2hCb2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/HRs/Login.cshtml]
@@ -105,6 +141,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Trainees/ViewAssessment.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lZXNcVmlld0Fzc2Vzc21lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/Trainees/ViewScores.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lZXNcVmlld1Njb3Jlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/Create.cshtml]

@@ -5,10 +5,11 @@
    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Login</h1>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h3 align="center" style="font-size:40px">Welcome to HR Login Portal</h3>
 </div>
+
+
 
 <div class="row">
     <div class="col-md-4">
@@ -29,7 +30,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger">
             </div>
             <label>@Html.Raw(ViewBag.Message)</label>
-            <label>@Html.Raw(ViewBag.User)</label>
         </form>
     </div>
 </div>
