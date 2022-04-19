@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
@@ -29,8 +30,10 @@ namespace TMSClient.Controllers
         }
 
         // GET: BatchsController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var trainers = await GetTrainers();
+            ViewData["TrainerName"] = new SelectList(trainers, "TrainerID", "Name");
             return View();
         }
 
@@ -117,6 +120,15 @@ namespace TMSClient.Controllers
             HttpClient client = new HttpClient(clientHandler);
             string JsonStr = await client.GetStringAsync(BaseURL + "/api/Batches");
             var result = JsonConvert.DeserializeObject<List<Batch>>(JsonStr);
+            return result;
+        }
+
+        public async Task<List<Trainer>> GetTrainers()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainers");
+            var result = JsonConvert.DeserializeObject<List<Trainer>>(JsonStr);
             return result;
         }
     }

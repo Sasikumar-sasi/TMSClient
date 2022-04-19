@@ -5,11 +5,9 @@
     Layout = "~/Views/Shared/_Trainer.cshtml";
 }
 
-<h1>ViewYourTrainees</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">In this all trainee's are mapped with you only</h3>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -46,9 +44,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.EmailID)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.BatchID)
             </th>
@@ -91,17 +87,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EmailID)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            
         </tr>
 }
     </tbody>

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TMSClient.Models.Trainer>
-
+@inject IHttpContextAccessor Accessor;
 @{
     ViewData["Title"] = "AllTrainers";
     Layout = "~/Views/Shared/_Hr.cshtml";
@@ -86,10 +86,13 @@
                 @Html.DisplayFor(modelItem => item.EmailID)
             </td>
            
-            <td>
-               
-                @Html.ActionLink("Delete", "Delete","Trainers", new { id=item.TrainerID })
+                @if (Accessor.HttpContext.Session.GetString("Role").Equals("HR"))
+                {
+
+                    <td>
+                        @Html.ActionLink("Delete", "Delete","Trainers", new { id=item.TrainerID })
             </td>
+            }
         </tr>
 }
     </tbody>

@@ -147,12 +147,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lZXNcVmlld1Njb3Jlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/AllTrainees.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lck1hbmFnZXJzXEFsbFRyYWluZWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/AllTrainers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lck1hbmFnZXJzXEFsbFRyYWluZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lck1hbmFnZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lck1hbmFnZXJzXERhc2hCb2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lck1hbmFnZXJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Training/DOT NET/FinalProject/TMSClient/TMSClient/Views/TrainerManagers/Index.cshtml]

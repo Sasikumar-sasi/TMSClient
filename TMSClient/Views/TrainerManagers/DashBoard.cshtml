@@ -1,31 +1,51 @@
-﻿
+﻿@inject IHttpContextAccessor Accessor;
 @{
     ViewData["Title"] = "DashBoard";
     Layout = "~/Views/Shared/_TrainerManager.cshtml";
 }
 
-<h1>DashBoard</h1>
-
-
-<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <button type="button" class="btn btn-success">Batchs</button>
-  <div class="btn-group" role="group">
-    <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2" style="">
-      <a class="dropdown-item" asp-area="" asp-controller="Batchs" asp-action="Index">View Batchs</a>
-      <a class="dropdown-item" asp-area="" asp-controller="Batchs" asp-action="Create">Add Batch</a>
-    </div>
-  </div>
+<div class="text-center">
+   <div class="alert alert-success alert-dismissible">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>@Accessor.HttpContext.Session.GetString("EmailID").ToString()!</strong> Welcome
 </div>
 
+<div class="row" style="margin-top:5%">
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/batch.jfif" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Batches</h5><span class="small text-uppercase text-muted">Trainee's</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Batchs" asp-action="Create">Create New Batch</a></a></li>
+                    <li style="margin-top:2%" class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Batchs" asp-action="Index">View Batch</a></li>
+                </ul>
+            </div>
+        </div>
 
-<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <button type="button" class="btn btn-success">Assessments</button>
-  <div class="btn-group" role="group">
-    <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2" style="">
-      <a class="dropdown-item" asp-area="" asp-controller="Assessments" asp-action="Create">Schedule New Assessment</a>
-      <a class="dropdown-item" asp-area="" asp-controller="Assessments" asp-action="Index">View All Assessments</a>
-    </div>
-  </div>
-</div>
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/assessment.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Assessment</h5><span class="small text-uppercase text-muted">Assessment for Trainee's</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Assessments" asp-action="Create">Schedule new assessment</a></a></li>
+                    <li style="margin-top:2%" class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Assessments" asp-action="Index">View all assessments</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/trainee.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Trainees</h5><span class="small text-uppercase text-muted">Interns</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li style="margin-top:2%" class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="TrainerManagers" asp-action="AllTrainees">View Trainees</a></li>
+                </ul>
+            </div>
+        </div>
+        <div  class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/trainer.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Trainer</h5><span class="small text-uppercase text-muted">Technical Trainer</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li style="margin-top:2%" class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="TrainerManagers" asp-action="AllTrainers">View Trainers</a></li>
+                </ul>
+            </div>
+        </div>
+
+        </div>

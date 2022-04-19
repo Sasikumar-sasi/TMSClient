@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<TMSClient.Models.Trainee>
-@inject IHttpContextAccessor Accessor;
+
 @{
     ViewData["Title"] = "AllTrainees";
-    Layout = "~/Views/Shared/_Hr.cshtml";
+    Layout = "~/Views/Shared/_TrainerManager.cshtml";
 }
 
 <div class="text-center">
-    <h3 align="center" style="font-size:30px">Full information About Trainee's joined in our organization</h3>
+    <h3 align="center" style="font-size:30px">Full information About Trainers in our organization</h3>
 </div>
-
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -92,13 +92,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
-            @if (Accessor.HttpContext.Session.GetString("Role").Equals("HR"))
-                {
-
-                    <td>
-                        @Html.ActionLink("Delete", "Delete","Trainers", new { id=item.TraineeID })
-            </td>
-            }
+            
         </tr>
 }
     </tbody>

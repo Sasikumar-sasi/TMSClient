@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Trainer.cshtml";
 }
 
-<h1>ViewAssessment</h1>
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">Distribute your Question paper and view all uploaded answer by trainee's </h3>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
@@ -68,8 +68,8 @@
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
             <td>
-                @Html.ActionLink("Upload Question", "Edit", "Assessments",new { id=item.AssessmentID}) |
-                @Html.ActionLink("View Ansewers", "Index","Answers", new {id=item.AssessmentID}) |
+                <div>@Html.ActionLink("Upload Question", "Edit", "Assessments",new { id=item.AssessmentID},new { @class = "btn btn-success btn-sm" }) </div>  
+                <div style="margin-top:10px">@Html.ActionLink("View Ansewers", "Index","Answers", new {id=item.AssessmentID},new { @class = "btn btn-warning btn-sm" }) </div>
                 
             </td>
         </tr>

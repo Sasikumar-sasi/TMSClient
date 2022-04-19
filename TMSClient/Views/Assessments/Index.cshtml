@@ -5,11 +5,10 @@
     Layout = "~/Views/Shared/_TrainerManager.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">Scheduled Assessment informations</h3>
+</div>
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -67,11 +66,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            
         </tr>
 }
     </tbody>
