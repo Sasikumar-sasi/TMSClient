@@ -5,11 +5,10 @@
     Layout = "~/Views/Shared/_Hr.cshtml";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">Full information About Trainer's joined in our organization</h3>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -87,11 +86,7 @@
                 @Html.DisplayFor(modelItem => item.EmailID)
             </td>
             
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            
         </tr>
 }
     </tbody>

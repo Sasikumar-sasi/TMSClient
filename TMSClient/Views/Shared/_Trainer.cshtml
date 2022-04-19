@@ -50,7 +50,7 @@
                                 Assessments
                             </button>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("View All assessments", "ViewAssessment", "Trainers",null, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("View All assessments", "ViewAssessmentWithName", "Trainers",null, new { @class = "dropdown-item" })</li>
                             </ul>
                         </div>
                         </li>
@@ -64,7 +64,7 @@
                                 @Accessor.HttpContext.Session.GetString("EmailID").ToString()
                             </button>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Update My Profile", "Edit", "TrainerManagers", new { id = Convert.ToInt32(Accessor.HttpContext.Session.GetString("ID")) }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Update My Profile", "Edit", "Trainers", new { id = Convert.ToInt32(Accessor.HttpContext.Session.GetString("ID")) }, new { @class = "dropdown-item" })</li>
                                 <li>@Html.ActionLink("Logout", "Logout", "Home", null, new { @class = "dropdown-item" })</li>
                             </ul>
                         </div>

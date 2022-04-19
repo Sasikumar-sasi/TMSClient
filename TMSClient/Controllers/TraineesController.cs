@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
+using TMSClient.Models.ForeignKeyMapping;
 
 namespace TMSClient.Controllers
 {
@@ -45,6 +46,11 @@ namespace TMSClient.Controllers
         {
             try
             {
+                //List<Batch> batches = await GetAllBatchs();
+                //Batch batch = batches.FirstOrDefault(b=>b.BatchID==trainee.BatchID);
+                //Console.WriteLine(batch.BatchName);
+                //trainee.Batchs = batch;
+                //Console.WriteLine(trainee.Batchs.BatchName);
                 Trainee recievedTrainees = new Trainee();
                 HttpClientHandler clientHandler = new HttpClientHandler();
                 var httpClient = new HttpClient(clientHandler);
@@ -70,20 +76,33 @@ namespace TMSClient.Controllers
             }
         }
 
-        // GET: TraineesController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            List<Trainee> tms = await GetTrainees();
+            Trainee tm = tms.FirstOrDefault(a => a.TraineeID == id);
+            return View(tm);
         }
 
-        // POST: TraineesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Trainee tr)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                tr.TraineeID = id;
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                var httpClient = new HttpClient(clientHandler);
+                StringContent contents = new StringContent(JsonConvert.SerializeObject(tr), Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PutAsync(BaseURL + "/api/trainees/" + id, contents))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+
+                    if (apiResponse != null)
+                        return RedirectToAction("DashBoard");
+                    else
+                        return View();
+                }
             }
             catch
             {
@@ -161,22 +180,37 @@ namespace TMSClient.Controllers
         }
 
 
-        public async Task<IActionResult> ViewScores()
+        public async Task<IActionResult> ViewAssessmentScores()
         {
             List<Score> scores = await GetAllScores();
             List<Assessment> assessments = await GetAllAssessments();
             int id = Convert.ToInt32(HttpContext.Session.GetString("ID"));
             List<Score> scoresBasedID = scores.Where(s => s.TraineeID == id).ToList();
-            List<Assessment> assessmentName = new List<Assessment>();
-            foreach(Score score in scoresBasedID)
+
+            List<ScoreWithName> assessmentName = new List<ScoreWithName>();
+            //foreach(Score score in scoresBasedID)
+            //{
+
+            //    Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID==score.AssessmentID);
+            //    assessmentName.Add(assessment);
+            //}
+            //ViewData["AssessmentName"] = assessmentName;
+
+            //return View(scoresBasedID);
+
+            foreach (var item in scoresBasedID)
             {
-               
-                Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID==score.AssessmentID);
-                assessmentName.Add(assessment);
+                Assessment assessment = assessments.FirstOrDefault(ass=>ass.AssessmentID==item.AssessmentID);
+                ScoreWithName scoreWithName = new ScoreWithName()
+                {
+                    ScoreID = item.ScoreID,
+                    AssessmentName = assessment.AssessmentName,
+                    GainedScore = item.GainedScore,
+                    TotalScore = item.TotalScore,
+                };
+                assessmentName.Add(scoreWithName);
             }
-            ViewData["AssessmentName"] = assessmentName;
-            
-            return View(scoresBasedID);
+            return View(assessmentName);
         }
 
 

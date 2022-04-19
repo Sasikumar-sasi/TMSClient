@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
+using TMSClient.Models.ForeignKeyMapping;
 using TMSClient.Models.ViewModel;
 
 namespace TMSClient.Controllers
@@ -24,7 +25,25 @@ namespace TMSClient.Controllers
         {
             List<Answer> answerList = await GetAllAnswers();
             List<Answer> answerByID = answerList.Where(ans=>ans.AssessmentID==id).ToList();
-            return View(answerByID);
+            List<Assessment> assessments = await GetAllAssessments();
+            List<Trainee> trainees = await GetTrainees();
+            List<AnswerWithName> answerWithNames = new List<AnswerWithName>();
+            foreach (var item in answerByID)
+            {
+                Assessment assessment = assessments.FirstOrDefault(a=>a.AssessmentID==item.AssessmentID);
+                Trainee trainee = trainees.FirstOrDefault(tr => tr.TraineeID == item.TraineeID);
+                AnswerWithName answerWithName = new AnswerWithName()
+                {
+                    AnswerID = item.AnswerID,
+                    AssessmentName = assessment.AssessmentName,
+                    AnswerPath = item.AnswerPath,
+                    TraineeName = trainee.Name,
+                    TraineeID = item.TraineeID,
+                    AssessmentID = item.AssessmentID
+                };
+                answerWithNames.Add(answerWithName);
+            }
+            return View(answerWithNames);
         }
 
         // GET: AnswersController/Details/5
@@ -40,7 +59,7 @@ namespace TMSClient.Controllers
             ViewBag.ID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
             return View();
         }
-
+            
         // POST: AnswersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -169,6 +188,22 @@ namespace TMSClient.Controllers
             HttpClient client = new HttpClient(clientHandler);
             string JsonStr = await client.GetStringAsync(BaseURL + "/api/answers");
             var result = JsonConvert.DeserializeObject<List<Answer>>(JsonStr);
+            return result;
+        }
+        public async Task<List<Assessment>> GetAllAssessments()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
+            var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
+            return result;
+        }
+        public async Task<List<Trainee>> GetTrainees()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainees");
+            var result = JsonConvert.DeserializeObject<List<Trainee>>(JsonStr);
             return result;
         }
     }

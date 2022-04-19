@@ -10,16 +10,59 @@
   <strong>@Accessor.HttpContext.Session.GetString("EmailID").ToString()!</strong> Welcome
 </div>
 </div>
+<div class="row" style="margin-top:5%">
+      
+      <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/hr.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">New HR Profile </h5><span class="small text-uppercase text-muted">HRs profile</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="HRS" asp-action="Create">Upload New HR Profile</a></li>
+                </ul>
+            </div>
+        </div>
+      
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/allhr.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">View All HRs </h5><span class="small text-uppercase text-muted">HRs profile</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Admins" asp-action="AllHRs">View All HR Profiles</a></li>
+                </ul>
+            </div>
+        </div>
+     
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/tm01.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">View All Trainer Manager</h5><span class="small text-uppercase text-muted">Triner managers profile</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Admins" asp-action="AllTrainerManager">View all Training Manager</a></a></li>
+                </ul>
+            </div>
+        </div>
+       
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/tr.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">View All trainer </h5><span class="small text-uppercase text-muted">Trainers Profile</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Admins" asp-action="AllTrainer">View all Trainers</a></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-3"><img src="~/images/trainee01.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">View All Trainees</h5><span class="small text-uppercase text-muted">Trinees profile</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a class="btn btn-primary btn-block" asp-area="" asp-controller="Admins" asp-action="AllTrainees">View all Trainees</a></a></li>
+                   
+                </ul>
+            </div>
+        </div>
+       </div>
 
-<a class="btn btn-primary" asp-area="" asp-controller="HRS" asp-action="Create">Upload New HR Profile</a>
 
 
-<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllHRs">View All HR Profile</a>
 
-<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllTrainerManager">View all Training Manager</a>
 
-<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllTrainer">View all Trainers</a>
 
-<a class="btn btn-primary" asp-area="" asp-controller="Admins" asp-action="AllTrainees">View all Trainees</a>
+
 
 

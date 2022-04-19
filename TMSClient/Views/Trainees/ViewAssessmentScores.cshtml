@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TMSClient.Models.ForeignKeyMapping.ScoreWithName>
+
+@{
+    ViewData["Title"] = "ViewAssessmentScores";
+    Layout = "~/Views/Shared/_Trainee.cshtml";
+}
+
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">Your Scores according to assessment </h3>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ScoreID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GainedScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GainedScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalScore)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,17 +1,19 @@
-﻿@model IEnumerable<TMSClient.Models.Assessment>
+﻿@model IEnumerable<TMSClient.Models.ForeignKeyMapping.AssessmentBatch>
 
 @{
-    ViewData["Title"] = "ViewAssessment";
-    Layout = "~/Views/Shared/_Trainee.cshtml";
+    ViewData["Title"] = "ViewAssessmentWithName";
+    Layout = "~/Views/Shared/_Trainer.cshtml";
 }
+
 <div class="text-center">
-    <h3 align="center" style="font-size:30px">These assessments are assigned to you!!!</h3>
+    <h3 align="center" style="font-size:30px">Distribute your Question paper and view all uploaded answer by trainee's </h3>
 </div>
-<hr />
 <table class="table">
     <thead>
         <tr>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.AssessmentName)
             </th>
@@ -30,14 +32,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Question)
             </th>
-          
+            <th>
+                @Html.DisplayNameFor(model => model.BatchName)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessmentID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AssessmentName)
             </td>
@@ -56,11 +62,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Question)
             </td>
-            
             <td>
-                @Html.ActionLink("Download Question", "Download","Assessments", new {  fileName=item.Question}) |
-                @Html.ActionLink("Upload Answer", "Create","Answers", new { id=item.AssessmentID}) |
-                
+                @Html.DisplayFor(modelItem => item.BatchName)
+            </td>
+             <td>
+                <div>@Html.ActionLink("Upload Question", "Edit", "Assessments",new { id=item.AssessmentID},new { @class = "btn btn-success btn-sm" }) </div>  
+                <div style="margin-top:10px">@Html.ActionLink("View Ansewers", "Index","Answers", new {id=item.AssessmentID},new { @class = "btn btn-warning btn-sm" }) </div>
                 
             </td>
         </tr>

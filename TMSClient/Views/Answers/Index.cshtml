@@ -1,15 +1,16 @@
-﻿@model IEnumerable<TMSClient.Models.Answer>
+﻿@model IEnumerable<TMSClient.Models.ForeignKeyMapping.AnswerWithName>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Trainer.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">Uploaded answer sheets </h3>
+</div>
+<hr />
+
 <table class="table">
     <thead>
         <tr>
@@ -17,14 +18,12 @@
                 @Html.DisplayNameFor(model => model.AnswerID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnswerPath)
+                @Html.DisplayNameFor(model => model.TraineeName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AssessmentID)
+                @Html.DisplayNameFor(model => model.AssessmentName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TraineeID)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -35,19 +34,16 @@
                 @Html.DisplayFor(modelItem => item.AnswerID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AnswerPath)
+                @Html.DisplayFor(modelItem => item.TraineeName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AssessmentID)
+                @Html.DisplayFor(modelItem => item.AssessmentName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TraineeID)
-            </td>
+            
             <td>
                 @Html.ActionLink("Download", "DownloadAnswer", new { fileName=item.AnswerPath }) |
                 @Html.ActionLink("Upload Scores", "UploadScore","Assessments", new { id=item.AssessmentID,traineeID=item.TraineeID})
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                
             </td>
         </tr>
 }

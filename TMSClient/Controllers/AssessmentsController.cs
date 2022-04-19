@@ -50,6 +50,10 @@ namespace TMSClient.Controllers
         {
             try
             {
+                //List<Batch> batches = await GetAllBatchs();
+                //Batch batch = batches.FirstOrDefault(b => b.BatchID == assessment.BatchID);
+                //assessment.Batchs = batch;
+                //Console.WriteLine(assessment.Batchs.BatchName);
                 Assessment recievedAssessment = new Assessment();
                 HttpClientHandler clientHandler = new HttpClientHandler();
                 var httpClient = new HttpClient(clientHandler);
@@ -113,6 +117,8 @@ namespace TMSClient.Controllers
                     Console.WriteLine("Checking folder");
                     string UploadFolder = "QuestionsAndAnswers/Questions";
                     Console.WriteLine("Folder is correct");
+
+
                     UniqueFileName = Guid.NewGuid().ToString() + "-" + assessmentViewModel.QuestionFile.FileName;
                     string FilePath = Path.Combine(UploadFolder, UniqueFileName + Path.GetExtension(assessmentViewModel.QuestionFile.FileName));
                     assessmentViewModel.QuestionFile.CopyTo(new FileStream(FilePath, FileMode.Create));

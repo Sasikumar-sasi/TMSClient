@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
+using TMSClient.Models.ForeignKeyMapping;
 
 namespace TMSClient.Controllers
 {
@@ -61,24 +62,40 @@ namespace TMSClient.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            List<Trainer> hrs = await GetTrainers();
+            Trainer tr = hrs.FirstOrDefault(a => a.TrainerID == id);
+            return View(tr);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Trainer tr)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                tr.TrainerID = id;
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                var httpClient = new HttpClient(clientHandler);
+                StringContent contents = new StringContent(JsonConvert.SerializeObject(tr), Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PutAsync(BaseURL + "/api/trainers/" + id, contents))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+
+                    if (apiResponse != null)
+                        return RedirectToAction("DashBoard");
+                    else
+                        return View();
+                }
             }
             catch
             {
                 return View();
             }
         }
+
 
         public ActionResult Delete(int id)
         {
@@ -135,14 +152,31 @@ namespace TMSClient.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ViewAssessment()
+        public async Task<IActionResult> ViewAssessmentWithName()
         {
             List<Batch> batches = await GetAllBatchs();
             int id = Convert.ToInt32(HttpContext.Session.GetString("ID"));
             Batch batch = batches.FirstOrDefault(b => b.TrainerID == id);
             List<Assessment> assessments = await GetAllAssessments();
             List<Assessment> yourAssessment = assessments.Where(ass=>ass.BatchID==batch.BatchID).ToList();
-            return View(yourAssessment);
+            List<AssessmentBatch> assessmentBatches = new List<AssessmentBatch>();
+            foreach (var item in yourAssessment)
+            {
+
+                AssessmentBatch assessmentBatch = new AssessmentBatch()
+                {
+                    AssessmentID = item.AssessmentID,
+                    AssessmentName = item.AssessmentName,
+                    BatchName = batch.BatchName,
+                    Date = item.Date,
+                    Duration = item.Duration,
+                    EndingTime = item.EndingTime,
+                    Question = item.Question,
+                    StartingTime = item.StartingTime
+                };
+                assessmentBatches.Add(assessmentBatch);
+            }
+            return View(assessmentBatches);
         }
 
 
