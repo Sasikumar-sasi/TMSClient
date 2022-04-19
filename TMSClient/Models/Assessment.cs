@@ -18,7 +18,7 @@ namespace TMSClient.Models
         [Required]
         public string EndingTime { get; set; }
 
-        public string Question { get; set; } = "NA";
+        public string Question { get; set; } = "N/A";
         
 
         [ForeignKey("BatchID")]

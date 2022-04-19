@@ -19,22 +19,29 @@ namespace TMSClient.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            List<Batch> batchList = await GetAllBatchs();
-            return View(batchList);
+            if (HttpContext.Session.GetString("Role").Equals("Training Manager"))
+            {
+                List<Batch> batchList = await GetAllBatchs();
+                return View(batchList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "TrainerManagers");
+            }
         }
 
-        // GET: BatchsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: BatchsController/Create
         public async Task<ActionResult> Create()
         {
-            var trainers = await GetTrainers();
-            ViewData["TrainerName"] = new SelectList(trainers, "TrainerID", "Name");
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Training Manager"))
+            {
+                var trainers = await GetTrainers();
+                ViewData["TrainerName"] = new SelectList(trainers, "TrainerID", "Name");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "TrainerManaers");
+            }
         }
 
         // POST: BatchsController/Create
@@ -73,36 +80,26 @@ namespace TMSClient.Controllers
         }
 
         // GET: BatchsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Training Manager"))
+            {
+                var trainers = await GetTrainers();
+                ViewData["TrainerName"] = new SelectList(trainers, "TrainerID", "Name");
+                List<Batch> batches = await GetAllBatchs();
+                Batch batch = batches.FirstOrDefault(a => a.BatchID == id);
+                return View(batch);
+            }
+            else
+            {
+                return RedirectToAction("Login", "TrainerManagers");
+            }
         }
 
         // POST: BatchsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BatchsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BatchsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

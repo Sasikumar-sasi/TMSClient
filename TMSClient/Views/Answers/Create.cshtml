@@ -6,9 +6,9 @@
     Layout = "~/Views/Shared/_Trainee.cshtml";
 }
 
-<h1>Create</h1>
+<h4>Upload your answer file</h4>
+<p>If answer file is uploaded the trainer will evaluate your file</p>
 
-<h4>Answer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,19 +18,19 @@
                 <label asp-for="AnswerFile" class="control-label"></label>
                 <input asp-for="AnswerFile" class="form-control" />
             </div>
-            <div class="form-group">
+            <div style="display:none" class="form-group">
                 <label asp-for="AssessmentID" class="control-label"></label>
                 <input asp-for="AssessmentID" class="form-control" value="@ViewBag.AssessmentID"/>
                 <span asp-validation-for="AssessmentID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Upload Answer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="ViewAssessment" asp-controller="trainees">Back to List</a>
 </div>
 

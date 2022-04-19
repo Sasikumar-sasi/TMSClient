@@ -49,7 +49,7 @@ namespace TMSClient.Controllers
                     recievedTM = JsonConvert.DeserializeObject<TrainerManager>(apiResponse);
                     if (recievedTM != null)
                     {
-                        return RedirectToAction("DashBoard", "trainermanagers");
+                        return RedirectToAction("DashBoard", "Hrs");
                     }
                 }
 

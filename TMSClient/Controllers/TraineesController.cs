@@ -25,18 +25,19 @@ namespace TMSClient.Controllers
             List<Trainee> trainees = await GetTrainees();
             return View(trainees);
         }
-        // GET: TraineesController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: TraineesController/Create
+        
         public async Task<ActionResult> Create()
         {
-            var batches = await GetAllBatchs();
-            ViewData["BatchName"] = new SelectList(batches, "BatchID", "BatchName");
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                var batches = await GetAllBatchs();
+                ViewData["BatchName"] = new SelectList(batches, "BatchID", "BatchName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "HRs");
+            }
         }
 
         // POST: TraineesController/Create
@@ -78,9 +79,16 @@ namespace TMSClient.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
-            List<Trainee> tms = await GetTrainees();
-            Trainee tm = tms.FirstOrDefault(a => a.TraineeID == id);
-            return View(tm);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Trainee"))
+            {
+                List<Trainee> tms = await GetTrainees();
+                Trainee tm = tms.FirstOrDefault(a => a.TraineeID == id);
+                return View(tm);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         [HttpPost]
@@ -109,28 +117,6 @@ namespace TMSClient.Controllers
                 return View();
             }
         }
-
-        // GET: TraineesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TraineesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
 
         [HttpGet]
         public IActionResult Login()
@@ -165,7 +151,14 @@ namespace TMSClient.Controllers
 
         public IActionResult DashBoard()
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Trainee"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
 

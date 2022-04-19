@@ -4,10 +4,9 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Trainer.cshtml";
 }
+<h4>Question Upload</h4>
+<p>If question is uploaded trainee's will download this Question</p>
 
-<h1>Edit</h1>
-
-<h4>AssessmentViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -54,7 +53,7 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Upload Question" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -73,6 +72,6 @@
 }
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="DashBoard" asp-controller="Trainers">Back to Dash Board</a>
 </div>
 

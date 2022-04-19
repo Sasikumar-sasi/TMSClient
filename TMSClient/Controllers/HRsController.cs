@@ -17,20 +17,17 @@ namespace TMSClient.Controllers
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("ADMIN"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login","Admins");
+            }
         }
 
         [HttpPost]
@@ -67,9 +64,16 @@ namespace TMSClient.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
-            List<HR> hrs = await GetHRs();
-            HR hr = hrs.FirstOrDefault(a => a.HRId == id);
-            return View(hr);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                List<HR> hrs = await GetHRs();
+                HR hr = hrs.FirstOrDefault(a => a.HRId == id);
+                return View(hr);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         [HttpPost]
@@ -99,10 +103,7 @@ namespace TMSClient.Controllers
             }
         }
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -150,25 +151,53 @@ namespace TMSClient.Controllers
 
         public IActionResult DashBoard()
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR")) 
+            { 
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");            
+            }
         }
 
         public async Task<IActionResult> AllTrainerManager()
         {
-            List<TrainerManager> trainerManagers = await GetTrainerManagers();
-            return View(trainerManagers);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                List<TrainerManager> trainerManagers = await GetTrainerManagers();
+                return View(trainerManagers);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public async Task<IActionResult> AllTrainers()
         {
-            List<Trainer> trainerManagers = await GetTrainers();
-            return View(trainerManagers);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                List<Trainer> trainerManagers = await GetTrainers();
+                return View(trainerManagers);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public async Task<IActionResult> AllTrainees()
         {
-            List<Trainee> trainerManagers = await GetTrainees();
-            return View(trainerManagers);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                List<Trainee> trainerManagers = await GetTrainees();
+                return View(trainerManagers);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
 

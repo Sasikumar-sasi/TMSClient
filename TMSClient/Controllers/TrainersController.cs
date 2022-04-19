@@ -156,7 +156,9 @@ namespace TMSClient.Controllers
         {
             List<Batch> batches = await GetAllBatchs();
             int id = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+            Console.WriteLine(id);
             Batch batch = batches.FirstOrDefault(b => b.TrainerID == id);
+            Console.WriteLine(batch.BatchID);
             List<Assessment> assessments = await GetAllAssessments();
             List<Assessment> yourAssessment = assessments.Where(ass=>ass.BatchID==batch.BatchID).ToList();
             List<AssessmentBatch> assessmentBatches = new List<AssessmentBatch>();

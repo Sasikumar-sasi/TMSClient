@@ -23,9 +23,17 @@ namespace TMSClient.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
-            List<Admin> admins = await GetAdmin() ;
-            Admin admin = admins.FirstOrDefault(a=>a.AdminId==id);
-            return View(admin);
+            if (HttpContext.Session.GetString("Role").Equals("ADMIN")) 
+            {
+                List<Admin> admins = await GetAdmin();
+                Admin admin = admins.FirstOrDefault(a => a.AdminId == id);
+                return View(admin);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+            
         }
 
         
@@ -91,29 +99,64 @@ namespace TMSClient.Controllers
 
         public IActionResult DashBoard()
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public async Task<IActionResult> AllHRs()
         {
-            List<HR> hrs= await GetHRs();
-            return View(hrs);
+            if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
+            {
+                List<HR> hrs = await GetHRs();
+                return View(hrs);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public async Task<IActionResult> AllTrainerManager()
         {
-            List<TrainerManager> tms = await GetTrainerManagers();
-            return View(tms);
+            if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
+            {
+                List<TrainerManager> tms = await GetTrainerManagers();
+                return View(tms);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
         public async Task<IActionResult> AllTrainer()
         {
-            List<Trainer> tr = await GetTrainers();
-            return View(tr);
+            if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
+            {
+                List<Trainer> tr = await GetTrainers();
+                return View(tr);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
         public async Task<IActionResult> AllTrainees()
         {
-            List<Trainee> tr = await GetTrainees();
-            return View(tr);
+            if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
+            {
+                List<Trainee> tr = await GetTrainees();
+                return View(tr);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public async Task<List<HR>> GetHRs()

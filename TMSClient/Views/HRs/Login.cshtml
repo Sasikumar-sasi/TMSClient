@@ -5,11 +5,11 @@
    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h3 align="center" style="font-size:40px">Welcome to HR Login Portal</h3>
+<h2  align="center">Welcome to Kumaran System</h2>
+<div>
+    <br />
+    <h3 > HR Login</h3>
 </div>
-
-
 
 <div class="row">
     <div class="col-md-4">
@@ -18,12 +18,13 @@
                 <label asp-for="EmailID" class="control-label">Email</label>
                 <input asp-for="EmailID" class="form-control" />
                 <span asp-validation-for="EmailID" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="Password" class="control-label">Password</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <br /><br />
             <div class="form-group">
                 <input type="submit" value="login" class="btn btn-primary" />
             </div>

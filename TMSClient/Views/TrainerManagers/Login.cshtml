@@ -3,8 +3,10 @@
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="text-center">
-    <h3 align="center" style="font-size:40px">Welcome to Trainer Manager's Login Portal</h3>
+<h2  align="center">Welcome to Kumaran System</h2>
+<div>
+    <br />
+    <h3 >Trainer Manager Login</h3>
 </div>
 
 <div class="row">
@@ -14,12 +16,12 @@
                 <label asp-for="EmailID" class="control-label">Email</label>
                 <input asp-for="EmailID" class="form-control" />
                 <span asp-validation-for="EmailID" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="Password" class="control-label">Password</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+            </div><br /><br />
             <div class="form-group">
                 <input type="submit" value="login" class="btn btn-primary" />
             </div>

@@ -24,23 +24,30 @@ namespace TMSClient.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            List<Assessment> assessments = await GetAllAssessments();
+            if (HttpContext.Session.GetString("Role").Equals("Training Manager"))
+            {
+                List<Assessment> assessments = await GetAllAssessments();
 
-            return View(assessments);
+                return View(assessments);
+            }
+            else
+            {
+                return RedirectToAction("Login","TrainerManagers");
+            }
         }
 
-        // GET: AssessmentsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AssessmentsController/Create
         public async Task<ActionResult> Create()
         {
-            var batches = await GetAllBatchs();
-            ViewData["BatchName"] = new SelectList(batches, "BatchID", "BatchName");
-            return View();
+            if (HttpContext.Session.GetString("Role").Equals("Training Manager"))
+            {
+                var batches = await GetAllBatchs();
+                ViewData["BatchName"] = new SelectList(batches, "BatchID", "BatchName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "TrainerManagers");
+            }
         }
 
         // POST: AssessmentsController/Create
@@ -77,29 +84,29 @@ namespace TMSClient.Controllers
                 return View();
             }
         }
-        //[HttpGet]
-        //public ActionResult UploadQuestion()
-        //{
-        //    return View();
-        //}
 
-
-        // GET: AssessmentsController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            List<Assessment> assessments = await GetAllAssessments();
-            Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID == id);
-            AssessmentViewModel assessmentViewModel = new AssessmentViewModel()
+            if (HttpContext.Session.GetString("Role").Equals("Trainer"))
             {
-                AssessmentName = assessment.AssessmentName,
-                BatchID = assessment.BatchID,
-                Date = assessment.Date,
-                Duration = assessment.Duration,
-                EndingTime = assessment.EndingTime,
-                StartingTime = assessment.StartingTime,
-                Batchs = assessment.Batchs,
-            };
-            return View(assessmentViewModel);
+                List<Assessment> assessments = await GetAllAssessments();
+                Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID == id);
+                AssessmentViewModel assessmentViewModel = new AssessmentViewModel()
+                {
+                    AssessmentName = assessment.AssessmentName,
+                    BatchID = assessment.BatchID,
+                    Date = assessment.Date,
+                    Duration = assessment.Duration,
+                    EndingTime = assessment.EndingTime,
+                    StartingTime = assessment.StartingTime,
+                    Batchs = assessment.Batchs,
+                };
+                return View(assessmentViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Trainers");
+            }
         }
 
         // POST: AssessmentsController/Edit/5
@@ -185,32 +192,20 @@ namespace TMSClient.Controllers
             return File(memory, contentType, Path.GetFileName(path));
         }
 
-        // GET: AssessmentsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: AssessmentsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult UploadScore(int id, int traineeID)
         {
-            try
+            if (HttpContext.Session.GetString("Role").Equals("Trainer"))
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
+                ViewBag.AssessmentIDForScore = id;
+                ViewBag.TraineeIDForScore = traineeID;
                 return View();
-            }
-        }
 
-        public IActionResult UploadScore(int id,int traineeID)
-        {
-            ViewBag.AssessmentIDForScore = id;
-            ViewBag.TraineeIDForScore = traineeID;
-            return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Trainers");
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

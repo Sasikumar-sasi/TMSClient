@@ -8,23 +8,23 @@ namespace TMSClient.Models
         public int TrainerID { get; set; }
 
         [Required, MaxLength(30)]
-        public string Name { get; set; } = "NA";
+        public string Name { get; set; } = "N/A";
 
         [Required, MaxLength(15)]
-        public string PhoneNumber { get; set; } = "NA";
+        public string PhoneNumber { get; set; } = "N/A";
 
         [Required, MaxLength(30)]
-        public string SkillSet { get; set; } = "NA";
+        public string SkillSet { get; set; } = "N/A";
 
         [Required, Range(0, 20)]
         public int Experience { get; set; } = 0;
         [Required, MaxLength(30)]
-        public string EducationQualification { get; set; } = "NA";
+        public string EducationQualification { get; set; } = "N/A";
         [Required]
-        public string DOB { get; set; } = "NA";
+        public string DOB { get; set; } = "N/A";
 
         [Required, MaxLength(100)]
-        public string Address { get; set; } = "NA";
+        public string Address { get; set; } = "N/A";
 
         [Required, MaxLength(30)]
         public string Role { get; set; } = "Trainer";

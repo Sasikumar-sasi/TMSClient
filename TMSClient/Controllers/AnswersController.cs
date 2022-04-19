@@ -23,41 +23,48 @@ namespace TMSClient.Controllers
         // GET: AnswersController
         public async Task<ActionResult> Index(int id)
         {
-            List<Answer> answerList = await GetAllAnswers();
-            List<Answer> answerByID = answerList.Where(ans=>ans.AssessmentID==id).ToList();
-            List<Assessment> assessments = await GetAllAssessments();
-            List<Trainee> trainees = await GetTrainees();
-            List<AnswerWithName> answerWithNames = new List<AnswerWithName>();
-            foreach (var item in answerByID)
+            if (HttpContext.Session.GetString("Role").Equals("Trainer"))
             {
-                Assessment assessment = assessments.FirstOrDefault(a=>a.AssessmentID==item.AssessmentID);
-                Trainee trainee = trainees.FirstOrDefault(tr => tr.TraineeID == item.TraineeID);
-                AnswerWithName answerWithName = new AnswerWithName()
+                List<Answer> answerList = await GetAllAnswers();
+                List<Answer> answerByID = answerList.Where(ans => ans.AssessmentID == id).ToList();
+                List<Assessment> assessments = await GetAllAssessments();
+                List<Trainee> trainees = await GetTrainees();
+                List<AnswerWithName> answerWithNames = new List<AnswerWithName>();
+                foreach (var item in answerByID)
                 {
-                    AnswerID = item.AnswerID,
-                    AssessmentName = assessment.AssessmentName,
-                    AnswerPath = item.AnswerPath,
-                    TraineeName = trainee.Name,
-                    TraineeID = item.TraineeID,
-                    AssessmentID = item.AssessmentID
-                };
-                answerWithNames.Add(answerWithName);
+                    Assessment assessment = assessments.FirstOrDefault(a => a.AssessmentID == item.AssessmentID);
+                    Trainee trainee = trainees.FirstOrDefault(tr => tr.TraineeID == item.TraineeID);
+                    AnswerWithName answerWithName = new AnswerWithName()
+                    {
+                        AnswerID = item.AnswerID,
+                        AssessmentName = assessment.AssessmentName,
+                        AnswerPath = item.AnswerPath,
+                        TraineeName = trainee.Name,
+                        TraineeID = item.TraineeID,
+                        AssessmentID = item.AssessmentID
+                    };
+                    answerWithNames.Add(answerWithName);
+                }
+                return View(answerWithNames);
             }
-            return View(answerWithNames);
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
-        // GET: AnswersController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AnswersController/Create
         public ActionResult Create(int id)
         {
-            ViewBag.AssessmentID = id;
-            ViewBag.ID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
-            return View();
+            if (HttpContext.Session.GetString("Role").Equals("Trainee"))
+            {
+                ViewBag.AssessmentID = id;
+                ViewBag.ID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
             
         // POST: AnswersController/Create
@@ -122,66 +129,30 @@ namespace TMSClient.Controllers
 
         public async Task<IActionResult> DownloadAnswer(string fileName)
         {
-
-            if (fileName == null)
-                return Content("filename not present");
-            string QuestionFolder = "QuestionsAndAnswers/Answers";
-
-            var path = Path.Combine(QuestionFolder, fileName + Path.GetExtension(fileName));
-
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(path, FileMode.Open))
+            if (HttpContext.Session.GetString("Role").Equals("Trainer"))
             {
-                await stream.CopyToAsync(memory);
+                if (fileName == null)
+                    return Content("filename not present");
+                string QuestionFolder = "QuestionsAndAnswers/Answers";
+
+                var path = Path.Combine(QuestionFolder, fileName + Path.GetExtension(fileName));
+
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(path, FileMode.Open))
+                {
+                    await stream.CopyToAsync(memory);
+                }
+                memory.Position = 0;
+                var contentType = "APPLICATION/octet-stream";
+                return File(memory, contentType, Path.GetFileName(path));
             }
-            memory.Position = 0;
-            var contentType = "APPLICATION/octet-stream";
-            return File(memory, contentType, Path.GetFileName(path));
-        }
-
-        // GET: AnswersController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AnswersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            else
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                return RedirectToAction("Login");
             }
         }
 
-        // GET: AnswersController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AnswersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
+        
         public async Task<List<Answer>> GetAllAnswers()
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
