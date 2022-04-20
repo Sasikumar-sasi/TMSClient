@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
+using TMSClient.Models.ForeignKeyMapping;
 
 namespace TMSClient.Controllers
 {
@@ -200,6 +201,71 @@ namespace TMSClient.Controllers
             }
         }
 
+        public async Task<ActionResult> ViewAllAssessment()
+        {
+            if (HttpContext.Session.GetString("Role").Equals("HR"))
+            {
+                List<Assessment> assessments = await GetAllAssessments();
+
+                return View(assessments);
+            }
+            else
+            {
+                return RedirectToAction("Login", "HRs");
+            }
+        }
+
+
+        public async Task<IActionResult> ViewAssessmentScores(int id)
+        {
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                List<Score> scores = await GetAllScores();
+                List<Assessment> assessments = await GetAllAssessments();
+                List<Trainee> trainees = await GetTrainees();
+                List<Score> scoresBasedID = scores.Where(s => s.AssessmentID == id).ToList();
+
+                List<ScoreWithName> assessmentName = new List<ScoreWithName>();
+
+
+                foreach (var item in scoresBasedID)
+                {
+                    Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID == item.AssessmentID);
+                    Trainee trainee = trainees.FirstOrDefault(tr => tr.TraineeID == item.TraineeID);
+                    ScoreWithName scoreWithName = new ScoreWithName()
+                    {
+                        ScoreID = item.ScoreID,
+                        AssessmentName = assessment.AssessmentName,
+                        GainedScore = item.GainedScore,
+                        TotalScore = item.TotalScore,
+                        TraineeName = trainee.Name
+                    };
+                    assessmentName.Add(scoreWithName);
+                }
+                return View(assessmentName);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public async Task<List<Score>> GetAllScores()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/scores");
+            var result = JsonConvert.DeserializeObject<List<Score>>(JsonStr);
+            return result;
+        }
+        public async Task<List<Assessment>> GetAllAssessments()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
+            var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
+            return result;
+        }
 
         public async Task<List<HR>> GetHRs()
         {

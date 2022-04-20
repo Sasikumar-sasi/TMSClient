@@ -1,0 +1,103 @@
+﻿@model IEnumerable<TMSClient.Models.ForeignKeyMapping.ScoreWithName>
+
+@{
+    ViewData["Title"] = "ViewAssessmentScores";
+    Layout = "~/Views/Shared/_Trainer.cshtml";
+}
+
+<div class="text-center">
+    <h3 align="center" style="font-size:30px">Performance of Trainee's</h3>
+</div>
+<div><input type='button' id='btn' value='Print' onclick='printFunc();'></div>
+
+<hr />
+<div id="printarea">
+<table class="table" id="scores">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ScoreID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TraineeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GainedScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TraineeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GainedScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalScore)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+@section Scripts{
+    <script>
+ function printFunc() {
+    var divToPrint = document.getElementById('printarea');
+    var htmlToPrint = '' +
+        '<style type="text/css">' +
+        
+        
+'#scores {'+
+  'font-family: Arial, Helvetica, sans-serif;'+
+  'border-collapse: collapse;'+
+  'width: 100%;'+
+'}'+
+
+'#scores td, #scores th {'+
+  'border: 1px solid #ddd;'+
+  'padding: 8px;'+
+'}'+
+
+'#scores tr:nth-child(even){background-color: #f2f2f2;}'+
+
+'#scores tr:hover {background-color: #ddd;}'+
+
+'#scores th {'+
+  'padding-top: 12px;'+
+  'padding-bottom: 12px;'+
+  'text-align: left;'+
+  'background-color: #04AA6D;'+
+  'color: white;'+
+'}'
+        
+        +
+        '</style>';
+    htmlToPrint += divToPrint.outerHTML;
+    newWin = window.open("");
+    newWin.document.write("<h3 align='center'>Trainee Score Report</h3>");
+    newWin.document.write(htmlToPrint);
+    newWin.print();
+    newWin.close();
+    }
+    
+    </script>
+}
