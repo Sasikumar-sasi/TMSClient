@@ -66,7 +66,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BatchID)
             </td>
-            
+            <td>
+                @Html.ActionLink("Scores", "ViewAssessmentScores","TrainerManagers", new { id=item.AssessmentID }) 
+                
+            </td>
         </tr>
 }
     </tbody>

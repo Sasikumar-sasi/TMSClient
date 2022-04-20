@@ -181,15 +181,7 @@ namespace TMSClient.Controllers
             List<Score> scoresBasedID = scores.Where(s => s.TraineeID == id).ToList();
 
             List<ScoreWithName> assessmentName = new List<ScoreWithName>();
-            //foreach(Score score in scoresBasedID)
-            //{
-
-            //    Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID==score.AssessmentID);
-            //    assessmentName.Add(assessment);
-            //}
-            //ViewData["AssessmentName"] = assessmentName;
-
-            //return View(scoresBasedID);
+            
 
             foreach (var item in scoresBasedID)
             {

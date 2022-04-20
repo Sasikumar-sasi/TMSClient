@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using TMSClient.Models;
+using TMSClient.Models.ForeignKeyMapping;
 
 namespace TMSClient.Controllers
 {
@@ -18,8 +19,15 @@ namespace TMSClient.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            List<TrainerManager> trainerManagers = await GetTrainerManagers();
-            return View(trainerManagers);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                List<TrainerManager> trainerManagers = await GetTrainerManagers();
+                return View(trainerManagers);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Hrs");
+            }
         }
 
         public ActionResult Details(int id)
@@ -29,7 +37,14 @@ namespace TMSClient.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("HR"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "HRs");
+            }
         }
 
         [HttpPost]
@@ -66,9 +81,16 @@ namespace TMSClient.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
-            List<TrainerManager> tms = await GetTrainerManagers();
-            TrainerManager tm = tms.FirstOrDefault(a => a.TMID == id);
-            return View(tm);
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Training Manager"))
+            {
+                List<TrainerManager> tms = await GetTrainerManagers();
+                TrainerManager tm = tms.FirstOrDefault(a => a.TMID == id);
+                return View(tm);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         [HttpPost]
@@ -95,6 +117,40 @@ namespace TMSClient.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public async Task<IActionResult> ViewAssessmentScores(int id)
+        {
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Training Manager"))
+            {
+                List<Score> scores = await GetAllScores();
+                List<Assessment> assessments = await GetAllAssessments();
+                List<Trainee> trainees = await GetTrainees();
+                List<Score> scoresBasedID = scores.Where(s => s.AssessmentID == id).ToList();
+
+                List<ScoreWithName> assessmentName = new List<ScoreWithName>();
+
+
+                foreach (var item in scoresBasedID)
+                {
+                    Assessment assessment = assessments.FirstOrDefault(ass => ass.AssessmentID == item.AssessmentID);
+                    Trainee trainee = trainees.FirstOrDefault(tr => tr.TraineeID == item.TraineeID);
+                    ScoreWithName scoreWithName = new ScoreWithName()
+                    {
+                        ScoreID = item.ScoreID,
+                        AssessmentName = assessment.AssessmentName,
+                        GainedScore = item.GainedScore,
+                        TotalScore = item.TotalScore,
+                        TraineeName = trainee.Name
+                    };
+                    assessmentName.Add(scoreWithName);
+                }
+                return View(assessmentName);
+            }
+            else
+            {
+                return RedirectToAction("Login");
             }
         }
 
@@ -136,7 +192,7 @@ namespace TMSClient.Controllers
             var obj = admins.Where(a => a.EmailID.Equals(tm.EmailID) && a.Password.Equals(tm.Password)).FirstOrDefault();
             if (obj != null)
             {
-                
+
                 HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
                 HttpContext.Session.SetString("ID", obj.TMID.ToString());
                 HttpContext.Session.SetString("Role", obj.Role.ToString());
@@ -152,7 +208,14 @@ namespace TMSClient.Controllers
 
         public IActionResult DashBoard()
         {
-            return View();
+            if (HttpContext.Session.GetString("Role").ToString().Equals("Training Manager"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
 
@@ -190,6 +253,22 @@ namespace TMSClient.Controllers
             HttpClient client = new HttpClient(clientHandler);
             string JsonStr = await client.GetStringAsync(BaseURL + "/api/trainers");
             var result = JsonConvert.DeserializeObject<List<Trainer>>(JsonStr);
+            return result;
+        }
+        public async Task<List<Score>> GetAllScores()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/scores");
+            var result = JsonConvert.DeserializeObject<List<Score>>(JsonStr);
+            return result;
+        }
+        public async Task<List<Assessment>> GetAllAssessments()
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(clientHandler);
+            string JsonStr = await client.GetStringAsync(BaseURL + "/api/assessments");
+            var result = JsonConvert.DeserializeObject<List<Assessment>>(JsonStr);
             return result;
         }
     }
