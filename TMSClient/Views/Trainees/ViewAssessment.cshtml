@@ -58,8 +58,9 @@
             </td>
             
             <td>
-                @Html.ActionLink("Download Question", "Download","Assessments", new {  fileName=item.Question}) |
-                @Html.ActionLink("Upload Answer", "Create","Answers", new { id=item.AssessmentID}) |
+               
+                @Html.ActionLink("Download Question", "Download","Assessments", new {  fileName=item.Question}) <br>
+             @Html.ActionLink("Upload Answer", "Create","Answers", new { id=item.AssessmentID}) 
                 
                 
             </td>

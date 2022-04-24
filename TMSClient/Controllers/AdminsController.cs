@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using TMSClient.AppLogger;
 using TMSClient.Models;
 
 
@@ -13,13 +14,15 @@ namespace TMSClient.Controllers
         
         IConfiguration _configuration;
         string BaseURL;
-        public AdminsController(IConfiguration configuration)
+        private readonly ILoggerManager logger;
+        public AdminsController(IConfiguration configuration, ILoggerManager logger)
         {
-            
+            this.logger = logger;
+            this.logger.LogInformation("On the Admin Controller constructor");
+
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
-
 
         public async Task<ActionResult> Edit(int id)
         {
@@ -69,6 +72,8 @@ namespace TMSClient.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            this.logger.LogInformation("Admin Login Page Loaded");
+
             return View();
         }
 
@@ -84,7 +89,7 @@ namespace TMSClient.Controllers
             var obj = admins.Where(a => a.EmailID.Equals(admin.EmailID) && a.Password.Equals(admin.Password)).FirstOrDefault();
             if (obj != null)
             {
-
+                this.logger.LogInformation($"{obj.AdminName} - Logined  Successful");
                 HttpContext.Session.SetString("ID", obj.AdminId.ToString());
                 HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
                 HttpContext.Session.SetString("Role", obj.Role.ToString());
@@ -113,6 +118,7 @@ namespace TMSClient.Controllers
         {
             if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
             {
+                this.logger.LogInformation("Admin - View all HR Information");
                 List<HR> hrs = await GetHRs();
                 return View(hrs);
             }
@@ -126,6 +132,7 @@ namespace TMSClient.Controllers
         {
             if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
             {
+                this.logger.LogInformation("Admin - View all Trainer Manager Information");
                 List<TrainerManager> tms = await GetTrainerManagers();
                 return View(tms);
             }
@@ -138,6 +145,7 @@ namespace TMSClient.Controllers
         {
             if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
             {
+                this.logger.LogInformation("Admin - View all Trainer Information");
                 List<Trainer> tr = await GetTrainers();
                 return View(tr);
             }
@@ -150,6 +158,7 @@ namespace TMSClient.Controllers
         {
             if (HttpContext.Session.GetString("Role").Equals("ADMIN"))
             {
+                this.logger.LogInformation("Admin - View all Trainer's Information");
                 List<Trainee> tr = await GetTrainees();
                 return View(tr);
             }

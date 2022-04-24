@@ -68,7 +68,7 @@
              <td>
                 <div>@Html.ActionLink("Upload Question", "Edit", "Assessments",new { id=item.AssessmentID},new { @class = "btn btn-success btn-sm" }) </div>  
                 <div style="margin-top:10px">@Html.ActionLink("View Ansewers", "Index","Answers", new {id=item.AssessmentID},new { @class = "btn btn-warning btn-sm" }) </div>
-                <div style="margin-top:10px">@Html.ActionLink("Scores", "ViewAssessmentScores", new { id=item.AssessmentID },new{@class="btn btn-danger"})</div>
+                <div style="margin-top:10px">@Html.ActionLink("Trainee's Scores", "ViewAssessmentScores", new { id=item.AssessmentID },new{@class="btn btn-danger"})</div>
             </td>
         </tr>
 }

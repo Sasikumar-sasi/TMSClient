@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using TMSClient.AppLogger;
 using TMSClient.Models;
 using TMSClient.Models.ForeignKeyMapping;
 using TMSClient.Models.ViewModel;
@@ -13,11 +14,12 @@ namespace TMSClient.Controllers
         IConfiguration _configuration;
         string BaseURL;
         IHostEnvironment _environment;
-
-        public AnswersController(IConfiguration configuration, IHostEnvironment environment)
+        private readonly ILoggerManager logger;
+        public AnswersController(IConfiguration configuration, IHostEnvironment environment, ILoggerManager logger)
         {
             _environment = environment;
             _configuration = configuration;
+            this.logger = logger;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
         // GET: AnswersController
@@ -25,6 +27,7 @@ namespace TMSClient.Controllers
         {
             if (HttpContext.Session.GetString("Role").Equals("Trainer"))
             {
+                this.logger.LogInformation("Trainer view answer Loaded");
                 List<Answer> answerList = await GetAllAnswers();
                 List<Answer> answerByID = answerList.Where(ans => ans.AssessmentID == id).ToList();
                 List<Assessment> assessments = await GetAllAssessments();

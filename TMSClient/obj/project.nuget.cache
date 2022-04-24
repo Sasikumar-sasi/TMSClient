@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "CrObOoBIiM35aQu4MN8CJqFpQe7KBAAXMLy5xoHzmZOja2kveg7h4ObB8nmEkxHvLi0ZnNQAV2EK/QVn6m26qA==",
+  "dgSpecHash": "rVaEDi+pwnsUwTaZ2p2fwA+Pve7mZNJeWwtiuTGjBqjriFuPAz0WeMrZvuM2Ps4RbZyaX5GdivshhboXvA/RYQ==",
   "success": true,
   "projectFilePath": "D:\\Training\\DOT NET\\FinalProject\\TMSClient\\TMSClient\\TMSClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sasikumar\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\Sasikumar\\.nuget\\packages\\log4net\\2.0.14\\log4net.2.0.14.nupkg.sha512",
     "C:\\Users\\Sasikumar\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Sasikumar\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\Sasikumar\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",

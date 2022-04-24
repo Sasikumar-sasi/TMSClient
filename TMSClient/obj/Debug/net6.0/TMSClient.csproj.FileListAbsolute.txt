@@ -534,3 +534,14 @@ D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\refs\Windo
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\log4net.config
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\log4net.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Training\DOT NET\FinalProject\TMSClient\TMSClient\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll

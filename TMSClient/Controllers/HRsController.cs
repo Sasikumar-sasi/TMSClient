@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using TMSClient.AppLogger;
 using TMSClient.Models;
 using TMSClient.Models.ForeignKeyMapping;
 
@@ -11,9 +12,11 @@ namespace TMSClient.Controllers
     {
         IConfiguration _configuration;
         string BaseURL;
-        public HRsController(IConfiguration configuration)
+        private readonly ILoggerManager logger;
+        public HRsController(IConfiguration configuration,ILoggerManager logger)
         {
-
+            this.logger = logger;
+            this.logger.LogInformation("On HR Controller constructor initialized");
             _configuration = configuration;
             BaseURL = _configuration.GetValue<string>("BaseURL");
         }
@@ -138,6 +141,7 @@ namespace TMSClient.Controllers
             var obj = hrs.Where(a => a.EmailID.Equals(hr.EmailID) && a.Password.Equals(hr.Password)).FirstOrDefault();
             if (obj != null)
             {
+                this.logger.LogInformation($"{obj.Name} - Logged in");
                 HttpContext.Session.SetString("EmailID", obj.EmailID.ToString());
                 HttpContext.Session.SetString("ID", obj.HRId.ToString());
                 HttpContext.Session.SetString("Role", obj.Role.ToString());
@@ -145,6 +149,7 @@ namespace TMSClient.Controllers
             }
             else
             {
+                this.logger.LogInformation("HR credentials id wrong");
                 ViewBag.Message = "User not found for given Email and Password";
                 return View();
             }
@@ -152,8 +157,10 @@ namespace TMSClient.Controllers
 
         public IActionResult DashBoard()
         {
+
             if (HttpContext.Session.GetString("Role").ToString().Equals("HR")) 
-            { 
+            {
+                this.logger.LogInformation($"{HttpContext.Session.GetString("EmailID")} - DashBoard");
                 return View();
             }
             else
