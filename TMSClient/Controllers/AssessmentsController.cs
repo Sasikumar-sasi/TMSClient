@@ -178,9 +178,9 @@ namespace TMSClient.Controllers
 
             if (fileName == null)
                 return Content("filename not present");
-            string QuestionFolder  = "QuestionsAndAnswers/Questions";
+            string QuestionFolder = "QuestionsAndAnswers/Questions";
 
-            var path = Path.Combine(QuestionFolder,fileName+Path.GetExtension(fileName));
+            var path = Path.Combine(QuestionFolder, fileName + Path.GetExtension(fileName));
 
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open))

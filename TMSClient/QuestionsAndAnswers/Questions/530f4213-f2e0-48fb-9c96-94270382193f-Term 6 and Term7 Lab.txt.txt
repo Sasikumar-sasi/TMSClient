@@ -1,0 +1,22 @@
+asp.net mvc and asp.net core web api lab (200 Marks)
+----------------------------------------------------
+
+100 Marks
+----------
+1. Create a web api provides CRUD facility for 
+
+Courses (CourseName, Duration, Trainer, Fee, Mode (online or Offline))
+
+a) Enable CORS, 
+b) Json Serialization,
+c) Enable JWT Authentication
+
+100 Marks
+---------
+
+2. Consume above WebAPI from CORE MVC
+
+a) Implement Login Module to generate token
+b) Create session to store JWT Token
+c) Create controller to display courses information for valid user.
+

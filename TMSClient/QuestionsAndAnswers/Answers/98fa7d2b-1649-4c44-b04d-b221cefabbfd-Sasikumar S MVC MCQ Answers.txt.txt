@@ -1,0 +1,175 @@
+05/04/2022 - External Dot Net Training - ASP.NET MVC - MCQ - 20 Questions
+
+Name   : Sasikumar S
+
+Emp ID : TR-162
+
+
+
+1. What is default authentication in Internet Information Services (IIS)?
+
+A) Standard User
+B) Administrator
+C) Anonymous
+D) None
+
+Ans C
+
+2. What is the extension of MVC view when using C#?
+A) cshtml
+B) vbhtml
+C) None
+D) Both A & B
+
+Ans A
+
+3. How can you comment using Razor Syntax?
+A) *@ Comment me *@
+B) @* Comment me *@
+C) @* Comment me @*
+D) *@ Comment me @*
+E) None
+
+Ans B
+
+4. Which Namespace is used for Razor View Engine ?
+A) System.Web.Razor
+B) System.Web.Mvc.WebFormViewEngine
+C) Both A & B
+D) None
+
+Ans A
+
+5. The Razor View Engine uses to render server side content.
+A) @
+B) <%= %>
+C) Both A & B
+D) None
+
+Ans A
+
+6. Viewstart comes under which folder name ?
+A) Views
+B) Account
+C) Shared
+D) Home
+
+Ans A
+
+7. Which is the way to render Partial View using ASP.Net MVC Razor Engine?
+A) @Html.Partial("_PartialHeader")
+B) @Html.PartialView("_PartialHeader")
+C) @Html.PartialHtml("_PartialHeader") 
+D) B and C
+E) None
+
+Answer A
+
+8. Is ViewData faster than ViewBag in MVC?
+A) No
+B) Yes
+C) Both A) & B)
+D) None
+
+Answer B
+
+9. Which name space using can send email in ASP.Net MVC?
+A) using System.Mail;
+B) using System.Net;
+C) using System.Net.Mail;
+D) None
+
+Answer C
+
+10. AuthConfig.cs file is under in which App folder ? 
+A) App_Data
+B) App_Start
+C) Content
+D) Filters
+
+Answer B
+
+11. Which filter will be execute at first using ASP.Net MVC?
+A) Action filters
+B) Authorization filters
+C) Response filters
+D) Exception filters
+
+Answer B
+
+12. Which filter will be execute at last using ASP.Net MVC?
+A) Action filters
+B) Authorization filters
+C) Exception filters
+D) Response filters
+
+Answer C
+
+13. What is MVC application life cycle?
+A. Creating the request object
+B. Creating Response object
+C. Both A and B 
+D. None
+
+Answer C
+
+14. What are the segments for routing?
+A. ControllerName
+B. ActionMethodName
+C. Parameters
+D. All of the above
+
+Answer D
+
+15. which of the following is the extension of MVC view when using vb.net?
+A. cshtml
+B. vbhtml
+C. Both A & B
+D. None
+
+Answer B
+
+16. In model-view-controller (MVC) architecture, model defines the _____________.
+
+A. Data-access laye
+B. Business-logic layer
+C. Presentation layer
+D. Interface layer
+
+Answer B
+
+17. What is the advantages of MVC?
+A. MVC segregates your project into a different segment, and it becomes easy for developers to work on
+B. It is easy to edit or change some part of your project that makes project less development and maintenance cost
+C. MVC makes your project more systematic
+D. All of the mentioned
+
+Answer D
+
+18. In MVC, Ajax can be implemented in _____________ ways
+
+A. Ajax libraries
+B. Jquery
+C. both 1 & 2
+D. None of the above
+
+Answer C
+
+19. Howmany types of result in MVC?
+
+A. 11
+B. 12
+C. 13
+D. 10
+
+Answer B
+
+20. what is strongly typed view in mvc
+
+A. view created with the model class
+B. view having the same name as the class
+C. view created with strong keyword
+D. view created with a controller class
+
+Answer A
+
